@@ -23,8 +23,10 @@ jobs:
             echo "env=dev" >> $GITHUB_ENV
           elif [[ "${{ steps.branch-names.outputs.ref_branch }}" == "staging" ]]; then
             echo "env=stg" >> $GITHUB_ENV
-          else [[ "${{ steps.branch-names.outputs.ref_branch }}" == "main" ]]; then
+          elif [[ "${{ steps.branch-names.outputs.ref_branch }}" == "main" ]]; then
             echo "env=prod" >> $GITHUB_ENV
+          else
+            echo "Invalid branch. Exiting."; exit 1
           fi
 
       - uses: peter-evans/repository-dispatch@v3
