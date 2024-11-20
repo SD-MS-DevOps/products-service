@@ -19,7 +19,13 @@ jobs:
       # Verificar la rama   
       - name: Get Ref brach name
         run: |
-          echo "${{ steps.branch-names.outputs.ref_branch }}"
+          if [[ "${{ steps.branch-names.outputs.ref_branch }}" == "develop" ]]; then
+            echo "env=dev" >> $GITHUB_ENV
+          elif [[ "${{ steps.branch-names.outputs.ref_branch }}" == "staging" ]]; then
+            echo "env=stg" >> $GITHUB_ENV
+          else [[ "${{ steps.branch-names.outputs.ref_branch }}" == "main" ]]; then
+            echo "env=prod" >> $GITHUB_ENV
+          fi
 
       - uses: peter-evans/repository-dispatch@v3
         with:
