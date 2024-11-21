@@ -12,15 +12,16 @@ jobs:
 
     runs-on: ubuntu-latest
 
-   steps:
+    steps:
       - name: Get branch names
         id: branch-names
         uses: tj-actions/branch-names@v8
-      # Verificar la rama   
+     
+        # Verificar la rama   
       - name: Get branch name
         run: |
           echo "${{ steps.branch-names.outputs.ref_branch }}"
-
+           
       - uses: peter-evans/repository-dispatch@v3
         with:
            token: ${{ secrets.REPO_ACCESS_TOKEN }}
